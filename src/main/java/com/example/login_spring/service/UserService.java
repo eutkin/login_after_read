@@ -7,6 +7,7 @@ import com.example.login_spring.model.User;
 import com.example.login_spring.repository.RoleRepository;
 import com.example.login_spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class UserService {
 
     public User findUserByEmail(String email) {
 
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(email));
     }
 
     public User saveUser(User user) {

@@ -22,7 +22,7 @@ public class LoginController {
     private UserService userService;
 
 
-    @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
@@ -45,8 +45,7 @@ public class LoginController {
         User userExists = userService.findUserByEmail(user.getEmail());
         if (userExists != null) {
             bindingResult
-                    .rejectValue("email", "error.user",
-                            "There is already a user registrated with the email provided");
+                    .rejectValue("email", "error.user","There is already a user registrated with the email provided");
         }
 
         if (bindingResult.hasErrors()) {

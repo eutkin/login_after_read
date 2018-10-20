@@ -2,13 +2,14 @@ package com.example.login_spring.model;
 
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
 @Table(name = "role")
 @Data
 @Entity
-public class Role {
+public class Role implements GrantedAuthority {
 
 
     @Id
@@ -19,4 +20,8 @@ public class Role {
     @Column(name = "role")
     private String role;
 
+    @Override
+    public String getAuthority() {
+        return role;
+    }
 }

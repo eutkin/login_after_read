@@ -1,5 +1,7 @@
 package com.example.login_spring.configuration;
 
+import com.example.login_spring.model.User;
+import com.example.login_spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +12,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
@@ -25,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private DataSource dataSource;
+    private UserRepository userRepository;
 
     @Value("${spring.queries.users-query}")
     private String usersQuery;
@@ -33,12 +39,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${spring.queries.roles-query}")
     private String rolesQuery;
 
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.jdbcAuthentication()
-                .usersByUsernameQuery(usersQuery)
-                .authoritiesByUsernameQuery(rolesQuery)
-                .dataSource(dataSource)
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception { //pochemu 3 metoda s odinakovym nasvaniem
+        auth.userDetailsService(username -> userRepository
+                .findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username)))
                 .passwordEncoder(bCryptPasswordEncoder);
     }
 
@@ -49,8 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
-                .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/admin/home")
+                .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/ww")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()

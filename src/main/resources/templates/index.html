@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quteslist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+ 
+</head>
+<body>
+	<h1>Quotes</h1>
+    <table class="table table-striped">
+		<tr>
+		    <th>Author</th>
+		    <th>Text</th>
+			<th></th>
+		</tr>  
+    	<tr th:each = "quote : ${quotes}">
+    		<td th:text="${quote.text}"></td>
+    		<td th:text="${quote.author.name}"></td>
+    		<td><a th:href="@{/delete/{id}(id=${quote.id})}" class="btn btn-danger">Delete</a></td>
+    	</tr>
+    </table>
+    <a href="/add" class="btn btn-success">Add Quote</a>
+    
+</body>
+</html>
