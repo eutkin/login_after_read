@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class QuoteController {
     }
 
 
-    @RequestMapping("/ww")
+    @GetMapping({"/", "/ww"})
     public String index(Model model) {
         List<Quote> quotes = quoteRepository.findAll();
 
@@ -43,7 +41,7 @@ public class QuoteController {
     }
 
 
-    @RequestMapping(value = "save", method = RequestMethod.POST)
+    @PostMapping("/save")
     public String save(Quote quote, @AuthenticationPrincipal User author) {
         quote.setAuthor(author);
         quoteRepository.save(quote);
@@ -51,7 +49,7 @@ public class QuoteController {
     }
 
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @PostMapping("/delete/{id}")
     public String deleteQuote(@PathVariable("id") Long quoteId, Model model) {
         quoteRepository.deleteById(quoteId);
         return "redirect:/ww";

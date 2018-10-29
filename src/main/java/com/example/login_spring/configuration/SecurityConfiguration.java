@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -48,11 +49,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/ww").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-                .authenticated().and().csrf().disable().formLogin()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/save").authenticated()
+                .antMatchers(HttpMethod.POST, "/delete/**").authenticated()
+                .anyRequest().authenticated()
+                .and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/ww")
                 .usernameParameter("email")
                 .passwordParameter("password")
