@@ -9,7 +9,6 @@
 <body>
 	<h1>New quote</h1>
 	<div>
-
 		<form th:object="${quote}" th:action="@{save}" action="#" method="post">
 			<input type="text" th:field="*{text}" class="form-control"
 				placeholder="Text" />
