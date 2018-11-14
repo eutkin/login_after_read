@@ -9,7 +9,9 @@
 <body>
 	<h1>New quote</h1>
 	<div>
-
+		<form th:object="${quote}" th:action="@{/logout}" action="#" method="post">
+			<input type="submit" class="btn btn-success" value="Logout"></input>
+		</form>
 		<form th:object="${quote}" th:action="@{save}" action="#" method="post">
 			<input type="text" th:field="*{text}" class="form-control"
 				placeholder="Text" />
@@ -18,9 +20,6 @@
 			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="submit" class="btn btn-success" value="Save"></input>
 			<a th:href="@{/}">Cancel</a>
-		</form>
-		<form th:object="${quote}" th:action="@{/logout}" action="#" method="post">
-			<input type="submit" class="btn btn-success" value="Logout"></input>
 		</form>
 	</div>
 </body>

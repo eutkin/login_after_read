@@ -12,6 +12,9 @@
 
 
 	<h1>Quotes</h1>
+<form th:action="@{/logout}" action="#" method="post">
+	<input type="submit" class="btn btn-success" value="Logout"></input>
+</form>
     <table class="table table-striped">
 		<tr>
 		    <th>Author</th>
@@ -29,9 +32,6 @@
     	</tr>
     </table>
     <a href="/add" class="btn btn-success">Add Quote</a>
-	<form th:action="@{/logout}" action="#" method="post">
-		<input type="submit" class="btn btn-success" value="Logout"></input>
-	</form>
     
 </body>
 </html>
