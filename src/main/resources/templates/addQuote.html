@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h1>New quote</h1>
+	<h4><a th:href="@{/logout}">Logout</a></h4>
 	<div>
 		<form th:object="${quote}" th:action="@{save}" action="#" method="post">
 			<input type="text" th:field="*{text}" class="form-control"
