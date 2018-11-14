@@ -10,7 +10,12 @@
 </head>
 <body>
 <h4><a th:href="@{/logout}">Logout</a></h4>
+
+
 	<h1>Quotes</h1>
+<form th:action="@{/logout}" action="#" method="post">
+	<input type="submit" class="btn btn-success" value="Logout"></input>
+</form>
     <table class="table table-striped">
 		<tr>
 		    <th>Author</th>
