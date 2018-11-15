@@ -40,9 +40,21 @@ public class QuoteController {
         return "addQuote";
     }
 
+/*
+
+    @PostMapping("/update")
+    public String update(Quote quote, @AuthenticationPrincipal User author) {
+        quote.setAuthor(author);
+        quoteRepository.save(quote);
+        return "redirect:/ww";
+    }
+
+*/
+
+
 
     @PostMapping("/save")
-    public String save(Quote quote, @AuthenticationPrincipal User author) {
+    public String save(Quote quote,User author) {
         quote.setAuthor(author);
         quoteRepository.save(quote);
         return "redirect:/ww";
