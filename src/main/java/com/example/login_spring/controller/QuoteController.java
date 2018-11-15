@@ -54,7 +54,7 @@ public class QuoteController {
 
 
     @PostMapping("/save")
-    public String save(Quote quote,User author) {
+    public String save(Quote quote, @AuthenticationPrincipal User author) {
         quote.setAuthor(author);
         quoteRepository.save(quote);
         return "redirect:/ww";
