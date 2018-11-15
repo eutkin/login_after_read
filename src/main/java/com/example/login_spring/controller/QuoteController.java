@@ -6,6 +6,7 @@ import com.example.login_spring.model.User;
 import com.example.login_spring.repository.QuoteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,7 @@ public class QuoteController {
 
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public String save(Quote quote, @AuthenticationPrincipal User author) {
         quote.setAuthor(author);
         quoteRepository.save(quote);
