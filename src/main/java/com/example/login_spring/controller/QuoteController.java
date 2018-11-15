@@ -55,7 +55,7 @@ public class QuoteController {
 
 
     @PostMapping("/save")
-    @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such Order")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Quote quote, @AuthenticationPrincipal User author) {
         quote.setAuthor(author);
         quoteRepository.save(quote);
