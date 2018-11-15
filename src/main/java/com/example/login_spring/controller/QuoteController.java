@@ -55,7 +55,6 @@ public class QuoteController {
 
 
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     public String save(Quote quote, @AuthenticationPrincipal User author) {
         quote.setAuthor(author);
         quoteRepository.save(quote);
