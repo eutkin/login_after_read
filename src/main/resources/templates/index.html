@@ -20,6 +20,7 @@
 		    <th>Author</th>
 		    <th>Text</th>
 			<th></th>
+			<th></th>
 		</tr>  
     	<tr th:each = "quote : ${quotes}">
     		<td th:text="${quote.text}"></td>
@@ -28,6 +29,9 @@
 				<form th:action="@{/delete/{id}(id=${quote.id})}" method="post">
 					<button class="btn btn-danger" type="submit">Delete</button>
 				</form>
+			</td>
+			<td>
+				<a th:href="@{/update/{id}(id=${quote.id})}" class="btn">Update</a>
 			</td>
     	</tr>
     </table>

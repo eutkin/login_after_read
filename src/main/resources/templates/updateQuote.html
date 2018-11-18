@@ -3,7 +3,7 @@
 <head>
     <title>Quoteslist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
  
 </head>
 <body>
@@ -12,12 +12,9 @@
 		<form th:action="@{/logout}" action="#" method="post">
 			<input type="submit" class="btn btn-success" value="Logout"></input>
 		</form>
-		<form th:object="${quote}" th:action="@{save}" action="#" method="post">
-			<input type="text" th:field="*{text}" class="form-control"
-				placeholder="Text" />
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<div style="clear: both; display: block; height: 10px;"></div>
+		<form th:object="${quote}" th:action="@{/update/{id}(id=${quote.id})}" action="#" method="post">
+			<input type="hidden" th:value="*{id}">
+			<input type="text" th:field="*{text}" class="form-control"/>
 			<input type="submit" class="btn btn-success" value="Save"></input>
 			<a th:href="@{/}">Cancel</a>
 		</form>
