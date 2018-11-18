@@ -37,7 +37,7 @@ public class QuoteController {
         return "index";
     }
 
-    @RequestMapping(value = "add")
+    @RequestMapping(value = "/add")
     public String addQuote(Model model) {
         model.addAttribute("quote", new Quote());
         return "addQuote";
